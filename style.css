@@ -1,0 +1,53 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+#container {
+  display: flex;
+  height: 100vh;
+}
+
+#sidebar {
+  width: 250px;
+  padding: 15px;
+  background: white;
+  overflow-y: auto;
+  border-right: 1px solid #ccc;
+}
+
+#map {
+  flex: 1;
+  height: 100%;
+  position: relative; 
+}
+
+.store-item {
+  padding: 8px;
+  margin-bottom: 6px;
+  background: lightgray;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.store-item:hover {
+  background: lightcyan;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  border-radius: 50%;
+}
+
+.store-color { background: darkorange; }
+.park-color { background: green; }
