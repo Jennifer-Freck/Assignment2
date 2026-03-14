@@ -69,4 +69,72 @@ const parksData = {
     },
     {
       "type": "Feature",
-      "properties
+      "properties": { 
+        "id": "park2",
+        "name": "Toddy Jones Park"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-83.11076, 42.10293]
+      }
+    }
+  ]
+};
+
+
+// Store Layer //
+const storeLayer = L.geoJSON(storeData, {
+  pointToLayer: (feature, latlng) => {
+    return L.circleMarker(latlng, {
+      radius: 8,
+      color: "darkorange",
+      fillColor: "darkorange",
+      fillOpacity: 0.9
+    }).bindPopup(
+      `<h3>${feature.properties.name}</h3>
+       <p>${feature.properties.address}</p>`
+    );
+  }
+}).addTo(map);
+
+
+// Parks Layer //
+const parksLayer = L.geoJSON(parksData, {
+  pointToLayer: (feature, latlng) => {
+    return L.circleMarker(latlng, {
+      radius: 10,
+      color: "green",
+      fillColor: "green",
+      fillOpacity: 0.8
+    }).bindPopup(`<h3>${feature.properties.name}</h3>`);
+  }
+}).addTo(map);
+
+
+// Sidebar Store List //
+const storeListDiv = document.getElementById("store-list");
+
+storeLayer.eachLayer(layer => {
+  const f = layer.feature;
+
+  const item = document.createElement("div");
+  item.className = "store-item";
+  item.innerHTML = `<strong>${f.properties.name}</strong><br>${f.properties.address}`;
+
+  item.addEventListener("click", () => {
+    map.setView(layer.getLatLng(), 17);
+    layer.openPopup();
+  });
+
+  storeListDiv.appendChild(item);
+});
+
+
+// Layer Control //
+L.control.layers(
+  {},
+  {
+    "Stores": storeLayer,
+    "Parks (OSM)": parksLayer
+  }
+).addTo(map);
